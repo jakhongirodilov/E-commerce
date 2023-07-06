@@ -1,0 +1,62 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+    <form action="{% url 'products:display_category' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3" style="margin-top: 20px; margin-left: 10%;">
+            <label for="category">Choose a category:</label>
+            <select name="category" id="category">
+                <option value="all">All</option>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Search">
+        </div>
+    </form>
+
+    <div class="row mx-3">
+        {% for product in products %}
+
+            <div class="card mb-3" style="width: 90%; margin: auto;">
+                <div class="row g-0">
+                  <div class="col-md-4" >
+                    <img src="{{ product.img_url }}" class="img-fluid rounded-start" alt="{{ product.name }}" style="margin: 20px; width: 500px;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ product.name }}</h5>
+                      <p class="card-text">{{ product.description }}</p>
+                     
+                        <h4 class="my-4">Price: ${{ product.price }}</h4>
+                        <a href="{% url 'products:product' product.id %}" class="btn btn-primary" name="more_info">Details</a>
+                        <a href="{% url 'products:add' product.id %}" class="btn btn-primary" name="more_info">Add to cart</a>
+        
+                    </div>
+                  </div>
+                </div>
+              </div>
+        {% endfor %}
+    </div>
+
+    <!-- <div class="container-fluid mt-3">
+        <div class="row">
+
+            <div id='products' class="col-lg-9 mx-auto">
+                <div class="row mx-auto">
+                    {% for product in products %}
+                    <div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;">
+                        <img class="card-img-top" src="{{product.img_url}}" style="width: 250px; " alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-title">{{product.name}}</p>
+                            <p class="card-text"><b>${{product.price}}</b></p>
+                            <a href="{% url 'products:product' product.id %}" class="btn btn-primary" name="more_info">Details</a>
+                            <a href="{% url 'products:add' product.id %}" class="btn btn-primary" name="more_info">Add to cart</a>
+                        </div>    
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div> -->
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+    <p>Update Product {{ product.name }}: </p>
+
+    <form action="{% url 'products:update_product' product.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+<div style="margin: 20px 0 0 50px;">
+    <h3>{{ product.name }}</h3><br>
+
+    <img src="{{ product.img_url }}" alt="" style="width: 300px; margin: 10px 0 20px 0;">
+
+    <ul>
+        <li>Price: ${{ product.price }}</li>
+        <li>Category: {{ product.category }}</li>
+        <li>Decription: {{ product.description }}</li>
+        <li>Seller: {{ product.owner.username }}</li>
+    </ul>
+
+    {% if user.is_authenticated and user.username == product.owner.username %}
+        <a href="{% url 'products:update_product' product.id %}" class="btn btn-primary" name="more_info">Update</a>
+
+        <a href="{% url 'products:delete_product' product.id %}" class="btn btn-primary" name="more_info">Delete</a>
+    {% endif %}
+    
+    {% if user.is_authenticated %}
+        <a href="{% url 'products:add' product.id %}" class="btn btn-primary" name="more_info">Add to cart</a>
+        <a href="{% url 'products:order' %}" class="btn btn-primary" name="more_info">Order Now!</a>    
+    {% endif %}
+</div>
+    
+{% endblock %}

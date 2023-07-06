@@ -1,0 +1,24 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+    <div class="row mx-3">
+        {% for product in my_products %}
+            <div class="card mb-3" style="width: 940px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ product.img_url }}" class="img-fluid rounded-start" alt="{{ product.name }}" style="margin: 20px; width: 500px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            
+                            <h4 class="my-4">Price: ${{ product.price }}</h4>
+                            <a href="{% url 'products:product' product.id %}" class="btn btn-primary" name="more_info">Details</a>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
